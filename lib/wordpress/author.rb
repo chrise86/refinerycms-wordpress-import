@@ -24,7 +24,7 @@ module Refinery
       end
 
       def to_refinery
-        user = User.find_or_initialize_by_username_and_email(login, email)
+        user = User.find_or_initialize_by(username: login, email: email)
         unless user.persisted?
           user.password = 'password'
           user.password_confirmation = 'password'

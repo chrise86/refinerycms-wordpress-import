@@ -9,7 +9,7 @@ module Refinery
           "category[@domain='tag']"
         end
 
-        node.xpath(path).collect do |tag_node| 
+        node.xpath(path).collect do |tag_node|
           Tag.new(tag_node.text)
         end
       end
@@ -31,7 +31,7 @@ module Refinery
       end
 
       def to_refinery
-        user = ::User.find_by_username(creator) || ::User.first
+        user = ::User.find_by(username: creator) || ::User.first
         raise "Referenced User doesn't exist! Make sure the authors are imported first." \
           unless user
 
