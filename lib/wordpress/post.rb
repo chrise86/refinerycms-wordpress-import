@@ -20,13 +20,13 @@ module Refinery
 
       def categories
         node.xpath("category[@domain='category']").collect do |cat|
-          Category.new(cat.text)
+          RefineryBlogCategory.new(cat.text)
         end
       end
 
       def comments
         node.xpath("wp:comment").collect do |comment_node|
-          Comment.new(comment_node)
+          RefineryBlogComment.new(comment_node)
         end
       end
 
@@ -36,12 +36,12 @@ module Refinery
           unless user
 
         begin
-          post = ::BlogPost.new :title => title, :body => content_formatted,
+          post = ::RefineryBlogPost.new :title => title, :body => content_formatted,
             :draft => draft?, :published_at => post_date, :created_at => post_date,
             :user_id => user.id, :tag_list => tag_list
           post.save!
 
-          ::BlogPost.transaction do
+          ::RefineryBlogPost.transaction do
             categories.each do |category|
               post.categories << category.to_refinery
             end
@@ -74,7 +74,7 @@ module Refinery
             :menu_match => "^/blogs?(\/|\/.+?|)$"
           )
 
-          ::Page.default_parts.each do |default_page_part|
+          ::RefineryPage.default_parts.each do |default_page_part|
             page.parts.create(:title => default_page_part, :body => nil)
           end
         end

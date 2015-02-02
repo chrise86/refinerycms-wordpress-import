@@ -12,7 +12,7 @@ module Refinery
       end
 
       def to_refinery
-        BlogCategory.find_or_create_by(title: name)
+        RefineryBlogCategory.find_or_create_by(title: name)
       end
     end
   end

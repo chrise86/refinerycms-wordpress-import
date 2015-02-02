@@ -8,20 +8,20 @@ module Refinery
 
         raise "Given file '#{file_name}' no file or not readable." \
           unless File.file?(file_name) && File.readable?(file_name)
-        
+
         file = File.open(file_name)
         @doc = Nokogiri::XML(file)
       end
 
       def authors
         doc.xpath("//wp:author").collect do |author|
-          Author.new(author)
+          RefineryAuthor.new(author)
         end
       end
 
       def pages(only_published=false)
         pages = doc.xpath("//item[wp:post_type = 'page']").collect do |page|
-          Page.new(page)
+          RefineryPage.new(page)
         end
 
         pages = pages.select(&:published?) if only_published
@@ -30,7 +30,7 @@ module Refinery
 
       def posts(only_published=false)
         posts = doc.xpath("//item[wp:post_type = 'post']").collect do |post|
-          Post.new(post)
+          RefineryBlogPost.new(post)
         end
         posts = posts.select(&:published?) if only_published
         posts
@@ -44,7 +44,7 @@ module Refinery
 
       def categories
         doc.xpath("//wp:category/wp:cat_name").collect do |category|
-          Category.new(category.text)
+          RefineryBlogCategory.new(category.text)
         end
       end
 
