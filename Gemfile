@@ -21,4 +21,4 @@ end
 
 gem 'refinerycms', git: 'https://github.com/refinery/refinerycms', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
-gem 'refinerycms-wordpress-import', :path => './'
+gem 'refinerycms-wordpress-import', path: './'

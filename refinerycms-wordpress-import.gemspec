@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.email       = 'marc.remolt@googlemail.com'
   s.homepage    = 'https://github.com/mremolt/refinerycms-wordpress-import'
 
-  s.add_dependency 'bundler', '~> 1.0'
-  s.add_dependency 'refinerycms', '~> 1.0.0'
-  s.add_dependency 'refinerycms-blog', '~> 1.6.2'
-  s.add_dependency 'nokogiri', '~> 1.5.0'
+  s.add_dependency 'bundler' #, '~> 1.0'
+  s.add_dependency 'refinerycms' # , '~> 1.0.0'
+  s.add_dependency 'refinerycms-blog' # , '~> 1.6.2'
+  s.add_dependency 'nokogiri' # , '~> 1.5.0'
 
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'database_cleaner'
