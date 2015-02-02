@@ -31,7 +31,7 @@ module Refinery
       end
 
       def to_refinery
-        user = ::User.find_by(username: creator) || ::User.first
+        user = ::RefineryRefineryUser.find_by(username: creator) || ::RefineryUser.first
         raise "Referenced User doesn't exist! Make sure the authors are imported first." \
           unless user
 
@@ -65,12 +65,12 @@ module Refinery
       def self.create_blog_page_if_necessary
         # refinerycms wants a page at /blog, so let's make sure there is one
         # taken from the original db seeds from refinery-blog
-        unless ::Page.where("link_url = ?", '/blog').exists?
-          page = ::Page.create(
+        unless ::RefineryRefineryPage.where("link_url = ?", '/blog').exists?
+          page = ::RefineryPage.create(
             :title => "Blog",
             :link_url => "/blog",
             :deletable => false,
-            :position => ((::Page.maximum(:position, :conditions => {:parent_id => nil}) || -1)+1),
+            :position => ((::RefineryPage.maximum(:position, :conditions => {:parent_id => nil}) || -1)+1),
             :menu_match => "^/blogs?(\/|\/.+?|)$"
           )
 

@@ -15,7 +15,7 @@ module Refinery
 
       def authors
         doc.xpath("//wp:author").collect do |author|
-          RefineryAuthor.new(author)
+          RefineryUser.new(author)
         end
       end
 
