@@ -26,22 +26,22 @@ module Refinery
 
       def comments
         node.xpath("wp:comment").collect do |comment_node|
-          RefineryBlogComment.new(comment_node)
+          BlogComment.new(comment_node)
         end
       end
 
       def to_refinery
-        user = ::RefineryRefineryUser.find_by(username: creator) || ::RefineryUser.first
+        user = ::RefineryUser.find_by(username: creator) || ::RefineryUser.first
         raise "Referenced User doesn't exist! Make sure the authors are imported first." \
           unless user
 
         begin
-          post = ::RefineryBlogPost.new :title => title, :body => content_formatted,
+          post = ::BlogPost.new :title => title, :body => content_formatted,
             :draft => draft?, :published_at => post_date, :created_at => post_date,
             :user_id => user.id, :tag_list => tag_list
           post.save!
 
-          ::RefineryBlogPost.transaction do
+          ::BlogPost.transaction do
             categories.each do |category|
               post.categories << category.to_refinery
             end
@@ -65,16 +65,16 @@ module Refinery
       def self.create_blog_page_if_necessary
         # refinerycms wants a page at /blog, so let's make sure there is one
         # taken from the original db seeds from refinery-blog
-        unless ::RefineryRefineryPage.where("link_url = ?", '/blog').exists?
-          page = ::RefineryPage.create(
+        unless ::RefineryPage.where("link_url = ?", '/blog').exists?
+          page = ::Page.create(
             :title => "Blog",
             :link_url => "/blog",
             :deletable => false,
-            :position => ((::RefineryPage.maximum(:position, :conditions => {:parent_id => nil}) || -1)+1),
+            :position => ((::Page.maximum(:position, :conditions => {:parent_id => nil}) || -1)+1),
             :menu_match => "^/blogs?(\/|\/.+?|)$"
           )
 
-          ::RefineryPage.default_parts.each do |default_page_part|
+          ::Page.default_parts.each do |default_page_part|
             page.parts.create(:title => default_page_part, :body => nil)
           end
         end

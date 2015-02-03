@@ -68,7 +68,7 @@ module Refinery
       end
 
       def to_refinery
-        page = ::RefineryPage.create!(:id => post_id, :title => title, 
+        page = ::Page.create!(:id => post_id, :title => title, 
           :created_at => post_date, :draft => draft?)
 
         page.parts.create(:title => 'Body', :body => content_formatted)
