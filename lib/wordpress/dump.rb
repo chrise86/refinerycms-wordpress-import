@@ -21,7 +21,7 @@ module Refinery
 
       def pages(only_published=false)
         pages = doc.xpath("//item[wp:post_type = 'page']").collect do |page|
-          RefineryPage.new(page)
+          Page.new(page)
         end
 
         pages = pages.select(&:published?) if only_published
@@ -30,7 +30,7 @@ module Refinery
 
       def posts(only_published=false)
         posts = doc.xpath("//item[wp:post_type = 'post']").collect do |post|
-          RefineryBlogPost.new(post)
+          BlogPost.new(post)
         end
         posts = posts.select(&:published?) if only_published
         posts
@@ -44,7 +44,7 @@ module Refinery
 
       def categories
         doc.xpath("//wp:category/wp:cat_name").collect do |category|
-          RefineryBlogCategory.new(category.text)
+          BlogCategory.new(category.text)
         end
       end
 
