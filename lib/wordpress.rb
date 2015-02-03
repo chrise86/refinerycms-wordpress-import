@@ -1,9 +1,9 @@
 require 'nokogiri'
-require "wordpress/railtie" 
+require 'wordpress/railtie'
 
 module Refinery
   module WordPress
-    autoload :Author, 'wordpress/author' 
+    autoload :Author, 'wordpress/author'
     autoload :Tag, 'wordpress/tag'
     autoload :Category, 'wordpress/category'
     autoload :Page, 'wordpress/page'
@@ -13,4 +13,3 @@ module Refinery
     autoload :Attachment, 'wordpress/attachment'
   end
 end
-
