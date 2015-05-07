@@ -30,7 +30,7 @@ module Refinery
 
       def posts(only_published=false)
         posts = doc.xpath("//item[wp:post_type = 'post']").collect do |post|
-          BlogPost.new(post)
+          Post.new(post)
         end
         posts = posts.select(&:published?) if only_published
         posts

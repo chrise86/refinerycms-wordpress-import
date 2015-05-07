@@ -24,12 +24,14 @@ module Refinery
       end
 
       def to_refinery
-        user = Author.find_or_initialize_by_name_and_email(login, email)
-        unless user.persisted?
-          user.password = 'password'
-          user.password_confirmation = 'password'
-          user.save
-        end
+        # puts "login: #{login}"
+        # user = ::Refinery::User.find_or_initialize_by(full_name: login, email: email)
+        # unless user.persisted?
+        #   user.password = 'password'
+        #   user.password_confirmation = 'password'
+        #   user.save
+        # end
+        user = ::Refinery::User.find_by(username: 'sophie')
         user
       end
     end

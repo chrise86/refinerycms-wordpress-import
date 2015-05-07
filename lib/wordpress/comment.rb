@@ -36,7 +36,7 @@ module Refinery
       end
 
       def to_refinery
-        comment = RefineryBlogComment.new :name => author, :email => email
+        comment = ::Refinery::Blog::Comment.new :name => author, :email => email
 
         comment.body = content
         comment.created_at = date

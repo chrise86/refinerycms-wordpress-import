@@ -25,9 +25,12 @@ namespace :wordpress do
 
     Refinery::WordPress::Post.create_blog_page_if_necessary
 
-    ENV["MODEL"] = 'BlogPost'
-    Rake::Task["friendly_id:redo_slugs"].invoke
-    ENV.delete("MODEL")
+    # ENV["MODEL"] = 'BlogPost'
+    # Rake::Task["friendly_id:redo_slugs"].invoke
+    # ENV.delete("MODEL")
+    ActiveRecord::Base.connection.execute "UPDATE #{Refinery::Blog::Post.table_name} SET slug = null;"
+    ActiveRecord::Base.connection.execute "DELETE FROM friendly_id_slugs WHERE sluggable_type = 'Refinery::Blog::Post';"
+    Refinery::Blog::Post.find_each(&:save)
   end
 
   desc "reset blog tables and then import blog data from a Refinery::WordPress XML dump"

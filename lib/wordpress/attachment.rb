@@ -60,7 +60,7 @@ module Refinery
       private
 
       def to_image
-        image = ::RefineryImage.new
+        image = ::Refinery::Image.new
         image.created_at = post_date
         image.image_url = url
         image.save!
@@ -70,7 +70,7 @@ module Refinery
       end
 
       def to_resource
-        resource = ::RefineryResource.new
+        resource = ::Refinery::Resource.new
         resource.created_at = post_date
         resource.file_url = url
         resource.save!
@@ -106,7 +106,7 @@ module Refinery
       end
 
       def replace_url_in_blog_posts(new_url)
-        ::RefineryBlogPost.all.each do |post|
+        ::Refinery::Blog::Post.all.each do |post|
           if (! post.body.empty?) && post.body.include?(url)
             post.body = post.body.gsub(url_pattern, new_url)
             post.save!
@@ -115,7 +115,7 @@ module Refinery
       end
 
       def replace_url_in_pages(new_url)
-        ::RefineryRefineryPage.all.each do |page|
+        ::Refinery::Page.all.each do |page|
           page.parts.each do |part|
             if (! part.body.to_s.blank?) && part.body.include?(url)
               part.body = part.body.gsub(url_pattern, new_url)
